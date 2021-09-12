@@ -8,25 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    var headerCardData = HeaderCard.data[0]
-    var dayWeatherCellListData = DayWeatherRow.data
+    private var service: WeatherServiceManager
+    @ObservedObject var weatherViewModel: WeatherViewModel
+    
+    init(viewModel: WeatherViewModel, service: WeatherServiceManager = WeatherService()) {
+        self.service = service
+        self.weatherViewModel = WeatherViewModel(service: self.service)
+    }
+    
     var body: some View {
         NavigationView {
             VStack() {
                 Text("WHERETHER ⛅️")
-                HeaderCardView(headerCard: headerCardData)
+                weatherViewModel.getCurrentWeatherView()
                     .frame(height: 100)
                 Divider()
-                DayWeatherListView(dayWeatherCells: dayWeatherCellListData)
-
-            }
+                weatherViewModel.getDailyWeatherListView()
+            }.onAppear(perform: weatherViewModel.refresh)
         }
         .navigationBarTitle("Weather ⛅️")
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

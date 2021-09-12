@@ -8,37 +8,23 @@
 import Alamofire
 import Foundation
 
-class ApiService: ObservableObject {
-    let lang: String = "fr"
-    let url: String = "https://api.openweathermap.org/data/2.5/onecall"
-    let exclude: String = "minutely,hourly,alerts"
-    let appid: String = "d3c596d8596ec03a4973fb0fc0222e66"
 
-    // buildParameters doc
-    func buildParameters(lat: Double, long: Double) -> [String: Any] {
-        return [
-            "lat": lat,
-            "lon": long,
-            "lang": lang,
-            "exclude": exclude,
-            "appid": appid,
-        ] as [String: Any]
-    }
+enum APIGlobals {
+    static let lang: String = "fr"
+    static let url: String = "https://api.openweathermap.org/data/2.5/onecall"
+    static let exclude: String = "minutely,hourly,alerts"
+    static let units: String = "metric"
+    static let appid: String = "d3c596d8596ec03a4973fb0fc0222e66"
+}
 
-    // getCurrentForecast doc
-    func getCurrentForecast(lat: Double, long: Double, completionHandler: @escaping (WeatherAPIResponse) -> Void) {
-        let parameters = buildParameters(lat: lat, long: long)
-
-        performRequest(url: url, params: parameters, completion: { weatherAPIResponse in
-            completionHandler(weatherAPIResponse)
-        })
-    }
+class ApiService: ObservableObject, APIServiceManager {
 
     // performRequest doc
-    func performRequest(url: String, params: Parameters?, completion: @escaping (WeatherAPIResponse) -> Void) {
-        AF.request(url, parameters: params).responseDecodable(of: WeatherAPIResponse.self) { response in
-            guard let WeatherAPIResponse = response.value else { return }
-            completion(WeatherAPIResponse)
+    func performRequest(url: String, params: Parameters?, completion: @escaping (Result<Data?, Error>) -> Void) {
+        AF.request(url, parameters: params).response { resp in
+            guard resp.error == nil else {completion(.failure(resp.error!)); return}
+            completion(.success(resp.data))
         }
     }
 }
+

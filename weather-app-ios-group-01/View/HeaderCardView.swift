@@ -8,8 +8,17 @@
 import SwiftUI
 
 struct HeaderCardView: View {
-    @State var headerCard: HeaderCard
+    var viewModel: CurrentWeatherRowModel
     @State private var isAnimating = false
+    
+    init(viewModel: CurrentWeatherRowModel) {
+      self.viewModel = viewModel
+    }
+    
+    init(_ viewModel: CurrentWeatherRowModel) {
+      self.viewModel = viewModel
+    }
+    
     var foreverAnimation: Animation {
         Animation.linear(duration: 2.0)
             .repeatForever(autoreverses: false)
@@ -18,7 +27,7 @@ struct HeaderCardView: View {
     var body: some View {
         Group{
             VStack(alignment: .leading) {
-                Text(headerCard.city)
+                Text(viewModel.timezone)
                     .font(.headline)
                     .foregroundColor(Color.black)
                 HStack {
@@ -27,17 +36,17 @@ struct HeaderCardView: View {
                         .rotationEffect(Angle(degrees: self.isAnimating ? 360 : 0.0))
                         .animation(self.isAnimating ? foreverAnimation : .default)
                         .onAppear { self.isAnimating = true }
-                    Text("\(headerCard.temp, specifier: "%.1f")°")
+                    Text("\(viewModel.temperature)°")
                         .foregroundColor(.black)
                         
                     Spacer()
                     VStack(alignment: .leading) {
                         
-                        Text(headerCard.tempDescription)
+                        Text(viewModel.fullDescription)
                             .foregroundColor(.black)
                             .font(.system(size: 14))
                         
-                        Text("Ressenti \(headerCard.feelsLike, specifier: "%.1f")°")
+                        Text("Ressenti \(viewModel.feelsLike)°")
                             .foregroundColor(.black)
                             .font(.system(size: 14))
                     }
@@ -58,12 +67,3 @@ struct HeaderCardView: View {
     }
 }
 
-struct HeaderCardView_Previews: PreviewProvider {
-    static let headerCard = HeaderCard.data[0]
-    static var previews: some View {
-        HeaderCardView(headerCard: headerCard)
-            .padding(.top)
-            .environment(\.locale, Locale(identifier: "fr"))
-            .previewLayout(.fixed(width: 400, height: 110))
-    }
-}

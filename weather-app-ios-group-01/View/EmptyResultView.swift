@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-var emptySection: some View {
+var EmptyResultView: some View {
   Section {
     Text("No results")
       .foregroundColor(.gray)

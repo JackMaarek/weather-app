@@ -1,57 +1,45 @@
-////
-////  WeatherService.swift
-////  weather-app-ios-group-01
-////
-////  Created by jack Maarek on 05/09/2021.
-////
 //
-//import Foundation
-//import Combine
+//  WeatherService.swift
+//  weather-app-ios-group-01
 //
-//protocol WeatherFetchable {
-//  func weeklyWeatherForecast(
-//    forCity city: String
-//  ) -> AnyPublisher<WeeklyForecastResponse, WeatherError>
+//  Created by jack Maarek on 12/09/2021.
 //
-//  func currentWeatherForecast(
-//    forCity city: String
-//  ) -> AnyPublisher<CurrentWeatherForecastResponse, WeatherError>
-//}
-//
-//// MARK: - WeatherFetchable
-//extension WeatherFetcher: WeatherFetchable {
-//  func weeklyWeatherForecast(
-//    forCity city: String
-//  ) -> AnyPublisher<WeeklyForecastResponse, WeatherError> {
-//    return forecast(with: makeWeeklyForecastComponents(withCity: city))
-//  }
-//
-//  func currentWeatherForecast(
-//    forCity city: String
-//  ) -> AnyPublisher<CurrentWeatherForecastResponse, WeatherError> {
-//    return forecast(with: makeCurrentDayForecastComponents(withCity: city))
-//  }
-//
-//  private func forecast<T>(
-//    with components: URLComponents
-//  ) -> AnyPublisher<T, WeatherError> where T: Decodable {
-//    // 1
-//    guard let url = components.url else {
-//      let error = WeatherError.network(description: "Couldn't create URL")
-//      return Fail(error: error).eraseToAnyPublisher()
-//    }
-//
-//    // 2
-//    return session.dataTaskPublisher(for: URLRequest(url: url))
-//      // 3
-//      .mapError { error in
-//        .network(description: error.localizedDescription)
-//      }
-//      // 4
-//      .flatMap(maxPublishers: .max(1)) { pair in
-//        decode(pair.data)
-//      }
-//      // 5
-//      .eraseToAnyPublisher()
-//  }
-//}
+
+import Foundation
+
+class WeatherService: ObservableObject, WeatherServiceManager {
+    private var service: APIServiceManager
+
+    init(apiManager: APIServiceManager = ApiService()){
+        self.service = apiManager
+    }
+
+    // buildParameters doc
+    func buildParameters(lat: Double, long: Double) -> [String: Any] {
+        return [
+            "lat": lat,
+            "lon": long,
+            "lang": APIGlobals.lang,
+            "units": APIGlobals.units,
+            "exclude": APIGlobals.exclude,
+            "appid": APIGlobals.appid,
+        ] as [String: Any]
+    }
+
+    // getCurrentForecast doc
+    func getCurrentForecast(lat: Double, long: Double, completionHandler: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
+        let parameters = buildParameters(lat: lat, long: long)
+        service.performRequest(url: APIGlobals.url, params: parameters, completion: { apiResponse in
+            switch apiResponse {
+            case .success(let weatherData):
+                guard let decodedResp = try? JSONDecoder().decode(WeatherAPIResponse.self, from: weatherData!) else {
+                    completionHandler(.failure(print("Parsing Error") as! Error))
+                    return
+                }
+                completionHandler(.success(decodedResp))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        })
+    }
+}

@@ -9,8 +9,7 @@ import Foundation
 
 // MARK: - WeatherAPIResponse
 
-struct WeatherAPIResponse: Codable, Identifiable {
-    let id = UUID()
+struct WeatherAPIResponse: Codable {
     let lat, lon: Double
     let timezone: String
     let current: Current
