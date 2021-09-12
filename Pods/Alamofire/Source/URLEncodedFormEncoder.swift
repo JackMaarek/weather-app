@@ -340,8 +340,7 @@ public final class URLEncodedFormEncoder {
                 dateEncoding: DateEncoding = .deferredToDate,
                 keyEncoding: KeyEncoding = .useDefaultKeys,
                 spaceEncoding: SpaceEncoding = .percentEscaped,
-                allowedCharacters: CharacterSet = .afURLQueryAllowed)
-    {
+                allowedCharacters: CharacterSet = .afURLQueryAllowed) {
         self.alphabetizeKeyValuePairs = alphabetizeKeyValuePairs
         self.arrayEncoding = arrayEncoding
         self.boolEncoding = boolEncoding
@@ -416,8 +415,7 @@ final class _URLEncodedFormEncoder {
          codingPath: [CodingKey] = [],
          boolEncoding: URLEncodedFormEncoder.BoolEncoding,
          dataEncoding: URLEncodedFormEncoder.DataEncoding,
-         dateEncoding: URLEncodedFormEncoder.DateEncoding)
-    {
+         dateEncoding: URLEncodedFormEncoder.DateEncoding) {
         self.context = context
         self.codingPath = codingPath
         self.boolEncoding = boolEncoding
@@ -585,8 +583,7 @@ extension _URLEncodedFormEncoder {
              codingPath: [CodingKey],
              boolEncoding: URLEncodedFormEncoder.BoolEncoding,
              dataEncoding: URLEncodedFormEncoder.DataEncoding,
-             dateEncoding: URLEncodedFormEncoder.DateEncoding)
-        {
+             dateEncoding: URLEncodedFormEncoder.DateEncoding) {
             self.context = context
             self.codingPath = codingPath
             self.boolEncoding = boolEncoding
@@ -674,8 +671,7 @@ extension _URLEncodedFormEncoder {
              codingPath: [CodingKey],
              boolEncoding: URLEncodedFormEncoder.BoolEncoding,
              dataEncoding: URLEncodedFormEncoder.DataEncoding,
-             dateEncoding: URLEncodedFormEncoder.DateEncoding)
-        {
+             dateEncoding: URLEncodedFormEncoder.DateEncoding) {
             self.context = context
             self.codingPath = codingPath
             self.boolEncoding = boolEncoding
@@ -821,8 +817,7 @@ extension _URLEncodedFormEncoder {
              codingPath: [CodingKey],
              boolEncoding: URLEncodedFormEncoder.BoolEncoding,
              dataEncoding: URLEncodedFormEncoder.DataEncoding,
-             dateEncoding: URLEncodedFormEncoder.DateEncoding)
-        {
+             dateEncoding: URLEncodedFormEncoder.DateEncoding) {
             self.context = context
             self.codingPath = codingPath
             self.boolEncoding = boolEncoding
@@ -897,8 +892,7 @@ final class URLEncodedFormSerializer {
          arrayEncoding: URLEncodedFormEncoder.ArrayEncoding,
          keyEncoding: URLEncodedFormEncoder.KeyEncoding,
          spaceEncoding: URLEncodedFormEncoder.SpaceEncoding,
-         allowedCharacters: CharacterSet)
-    {
+         allowedCharacters: CharacterSet) {
         self.alphabetizeKeyValuePairs = alphabetizeKeyValuePairs
         self.arrayEncoding = arrayEncoding
         self.keyEncoding = keyEncoding

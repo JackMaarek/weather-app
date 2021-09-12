@@ -38,8 +38,7 @@ struct RequestTaskMap {
 
     init(tasksToRequests: [URLSessionTask: Request] = [:],
          requestsToTasks: [Request: URLSessionTask] = [:],
-         taskEvents: [URLSessionTask: (completed: Bool, metricsGathered: Bool)] = [:])
-    {
+         taskEvents: [URLSessionTask: (completed: Bool, metricsGathered: Bool)] = [:]) {
         self.tasksToRequests = tasksToRequests
         self.requestsToTasks = requestsToTasks
         self.taskEvents = taskEvents

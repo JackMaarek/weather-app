@@ -215,8 +215,7 @@ public final class PinnedCertificatesTrustEvaluator: ServerTrustEvaluating {
     public init(certificates: [SecCertificate] = Bundle.main.af.certificates,
                 acceptSelfSignedCertificates: Bool = false,
                 performDefaultValidation: Bool = true,
-                validateHost: Bool = true)
-    {
+                validateHost: Bool = true) {
         self.certificates = certificates
         self.acceptSelfSignedCertificates = acceptSelfSignedCertificates
         self.performDefaultValidation = performDefaultValidation
@@ -277,8 +276,7 @@ public final class PublicKeysTrustEvaluator: ServerTrustEvaluating {
     ///                               `true` by default.
     public init(keys: [SecKey] = Bundle.main.af.publicKeys,
                 performDefaultValidation: Bool = true,
-                validateHost: Bool = true)
-    {
+                validateHost: Bool = true) {
         self.keys = keys
         self.performDefaultValidation = performDefaultValidation
         self.validateHost = validateHost

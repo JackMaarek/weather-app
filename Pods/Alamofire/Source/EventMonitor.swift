@@ -332,8 +332,7 @@ public final class CompositeEventMonitor: EventMonitor {
 
     public func urlSession(_ session: URLSession,
                            task: URLSessionTask,
-                           didReceive challenge: URLAuthenticationChallenge)
-    {
+                           didReceive challenge: URLAuthenticationChallenge) {
         performEvent { $0.urlSession(session, task: task, didReceive: challenge) }
     }
 
@@ -341,8 +340,7 @@ public final class CompositeEventMonitor: EventMonitor {
                            task: URLSessionTask,
                            didSendBodyData bytesSent: Int64,
                            totalBytesSent: Int64,
-                           totalBytesExpectedToSend: Int64)
-    {
+                           totalBytesExpectedToSend: Int64) {
         performEvent {
             $0.urlSession(session,
                           task: task,
@@ -361,8 +359,7 @@ public final class CompositeEventMonitor: EventMonitor {
     public func urlSession(_ session: URLSession,
                            task: URLSessionTask,
                            willPerformHTTPRedirection response: HTTPURLResponse,
-                           newRequest request: URLRequest)
-    {
+                           newRequest request: URLRequest) {
         performEvent {
             $0.urlSession(session,
                           task: task,
@@ -390,16 +387,14 @@ public final class CompositeEventMonitor: EventMonitor {
 
     public func urlSession(_ session: URLSession,
                            dataTask: URLSessionDataTask,
-                           willCacheResponse proposedResponse: CachedURLResponse)
-    {
+                           willCacheResponse proposedResponse: CachedURLResponse) {
         performEvent { $0.urlSession(session, dataTask: dataTask, willCacheResponse: proposedResponse) }
     }
 
     public func urlSession(_ session: URLSession,
                            downloadTask: URLSessionDownloadTask,
                            didResumeAtOffset fileOffset: Int64,
-                           expectedTotalBytes: Int64)
-    {
+                           expectedTotalBytes: Int64) {
         performEvent {
             $0.urlSession(session,
                           downloadTask: downloadTask,
@@ -412,8 +407,7 @@ public final class CompositeEventMonitor: EventMonitor {
                            downloadTask: URLSessionDownloadTask,
                            didWriteData bytesWritten: Int64,
                            totalBytesWritten: Int64,
-                           totalBytesExpectedToWrite: Int64)
-    {
+                           totalBytesExpectedToWrite: Int64) {
         performEvent {
             $0.urlSession(session,
                           downloadTask: downloadTask,
@@ -425,8 +419,7 @@ public final class CompositeEventMonitor: EventMonitor {
 
     public func urlSession(_ session: URLSession,
                            downloadTask: URLSessionDownloadTask,
-                           didFinishDownloadingTo location: URL)
-    {
+                           didFinishDownloadingTo location: URL) {
         performEvent { $0.urlSession(session, downloadTask: downloadTask, didFinishDownloadingTo: location) }
     }
 
@@ -502,8 +495,7 @@ public final class CompositeEventMonitor: EventMonitor {
                         didValidateRequest urlRequest: URLRequest?,
                         response: HTTPURLResponse,
                         data: Data?,
-                        withResult result: Request.ValidationResult)
-    {
+                        withResult result: Request.ValidationResult) {
         performEvent { $0.request(request,
                                   didValidateRequest: urlRequest,
                                   response: response,
@@ -523,8 +515,7 @@ public final class CompositeEventMonitor: EventMonitor {
     public func request(_ request: DataStreamRequest,
                         didValidateRequest urlRequest: URLRequest?,
                         response: HTTPURLResponse,
-                        withResult result: Request.ValidationResult)
-    {
+                        withResult result: Request.ValidationResult) {
         performEvent { $0.request(request,
                                   didValidateRequest: urlRequest,
                                   response: response,
@@ -560,8 +551,7 @@ public final class CompositeEventMonitor: EventMonitor {
                         didValidateRequest urlRequest: URLRequest?,
                         response: HTTPURLResponse,
                         fileURL: URL?,
-                        withResult result: Request.ValidationResult)
-    {
+                        withResult result: Request.ValidationResult) {
         performEvent { $0.request(request,
                                   didValidateRequest: urlRequest,
                                   response: response,
@@ -724,8 +714,7 @@ open class ClosureEventMonitor: EventMonitor {
                          task: URLSessionTask,
                          didSendBodyData bytesSent: Int64,
                          totalBytesSent: Int64,
-                         totalBytesExpectedToSend: Int64)
-    {
+                         totalBytesExpectedToSend: Int64) {
         taskDidSendBodyData?(session, task, bytesSent, totalBytesSent, totalBytesExpectedToSend)
     }
 
@@ -736,8 +725,7 @@ open class ClosureEventMonitor: EventMonitor {
     open func urlSession(_ session: URLSession,
                          task: URLSessionTask,
                          willPerformHTTPRedirection response: HTTPURLResponse,
-                         newRequest request: URLRequest)
-    {
+                         newRequest request: URLRequest) {
         taskWillPerformHTTPRedirection?(session, task, response, request)
     }
 
@@ -764,8 +752,7 @@ open class ClosureEventMonitor: EventMonitor {
     open func urlSession(_ session: URLSession,
                          downloadTask: URLSessionDownloadTask,
                          didResumeAtOffset fileOffset: Int64,
-                         expectedTotalBytes: Int64)
-    {
+                         expectedTotalBytes: Int64) {
         downloadTaskDidResumeAtOffset?(session, downloadTask, fileOffset, expectedTotalBytes)
     }
 
@@ -773,8 +760,7 @@ open class ClosureEventMonitor: EventMonitor {
                          downloadTask: URLSessionDownloadTask,
                          didWriteData bytesWritten: Int64,
                          totalBytesWritten: Int64,
-                         totalBytesExpectedToWrite: Int64)
-    {
+                         totalBytesExpectedToWrite: Int64) {
         downloadTaskDidWriteData?(session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
     }
 
@@ -856,8 +842,7 @@ open class ClosureEventMonitor: EventMonitor {
                       didValidateRequest urlRequest: URLRequest?,
                       response: HTTPURLResponse,
                       data: Data?,
-                      withResult result: Request.ValidationResult)
-    {
+                      withResult result: Request.ValidationResult) {
         requestDidValidateRequestResponseDataWithResult?(request, urlRequest, response, data, result)
     }
 
@@ -893,8 +878,7 @@ open class ClosureEventMonitor: EventMonitor {
                       didValidateRequest urlRequest: URLRequest?,
                       response: HTTPURLResponse,
                       fileURL: URL?,
-                      withResult result: Request.ValidationResult)
-    {
+                      withResult result: Request.ValidationResult) {
         requestDidValidateRequestResponseFileURLWithResult?(request,
                                                             urlRequest,
                                                             response,

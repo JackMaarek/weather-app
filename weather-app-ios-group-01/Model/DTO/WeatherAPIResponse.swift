@@ -57,11 +57,13 @@ struct Weather: Codable {
 
 struct Daily: Codable {
     let dt: Int
+    let humidity: Int
     let temp: Temp
     let weather: [Weather]
 
     enum CodingKeys: String, CodingKey {
         case dt
+        case humidity
         case temp
         case weather
     }

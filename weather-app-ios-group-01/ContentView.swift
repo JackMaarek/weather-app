@@ -10,22 +10,38 @@ import SwiftUI
 struct ContentView: View {
     private var service: WeatherServiceManager
     @ObservedObject var weatherViewModel: WeatherViewModel
-    
-    init(viewModel: WeatherViewModel, service: WeatherServiceManager = WeatherService()) {
+
+    init(viewModel _: WeatherViewModel, service: WeatherServiceManager = WeatherService()) {
         self.service = service
-        self.weatherViewModel = WeatherViewModel(service: self.service)
+        weatherViewModel = WeatherViewModel(service: self.service)
     }
-    
+
     var body: some View {
         NavigationView {
-            VStack() {
-                Text("WHERETHER ⛅️")
-                weatherViewModel.getCurrentWeatherView()
-                    .frame(height: 100)
-                Divider()
-                weatherViewModel.getDailyWeatherListView()
-            }.onAppear(perform: weatherViewModel.refresh)
+                VStack {
+                    Group {
+                        HStack{
+                            Text("WHERETHER ⛅️")
+                                .padding(20)
+                            Spacer()
+                            NavigationLink(destination: SearchCityWeatherView()) {
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundColor(.black)
+                                    Text("Search")
+                                }
+                                .padding(20)
+                            }
+                        }
+                        ZStack{
+                            weatherViewModel.getCurrentWeatherView()
+                                .frame(height: 100)
+                        }
+                        weatherViewModel.getDailyWeatherListView()
+                    }.onAppear(perform: weatherViewModel.refresh)
+                }
+            .navigationBarTitle("Weather ⛅️")
+            .navigationBarHidden(true)
         }
-        .navigationBarTitle("Weather ⛅️")
     }
 }

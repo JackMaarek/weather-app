@@ -48,8 +48,7 @@
         ///   - queue:      `DispatchQueue` on which the `DataResponse` value will be published. `.main` by default.
         ///   - serializer: `ResponseSerializer` used to produce the published `DataResponse`.
         public init<Serializer: ResponseSerializer>(_ request: DataRequest, queue: DispatchQueue, serializer: Serializer)
-            where Value == Serializer.SerializedObject
-        {
+            where Value == Serializer.SerializedObject {
             self.request = request
             responseHandler = { request.response(queue: queue, responseSerializer: serializer, completionHandler: $0) }
         }
@@ -63,8 +62,7 @@
         public init<Serializer: DataResponseSerializerProtocol>(_ request: DataRequest,
                                                                 queue: DispatchQueue,
                                                                 serializer: Serializer)
-            where Value == Serializer.SerializedObject
-        {
+            where Value == Serializer.SerializedObject {
             self.request = request
             responseHandler = { request.response(queue: queue, responseSerializer: serializer, completionHandler: $0) }
         }
@@ -90,8 +88,7 @@
         }
 
         private final class Inner<Downstream: Subscriber>: Subscription, Cancellable
-            where Downstream.Input == Output
-        {
+            where Downstream.Input == Output {
             typealias Failure = Downstream.Failure
 
             @Protected
@@ -144,8 +141,7 @@
         /// - Returns:      The `DataResponsePublisher`.
         @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
         func publishResponse<Serializer: ResponseSerializer, T>(using serializer: Serializer, on queue: DispatchQueue = .main) -> DataResponsePublisher<T>
-            where Serializer.SerializedObject == T
-        {
+            where Serializer.SerializedObject == T {
             DataResponsePublisher(self, queue: queue, serializer: serializer)
         }
 
@@ -165,8 +161,7 @@
         func publishData(queue: DispatchQueue = .main,
                          preprocessor: DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor,
                          emptyResponseCodes: Set<Int> = DataResponseSerializer.defaultEmptyResponseCodes,
-                         emptyRequestMethods: Set<HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<Data>
-        {
+                         emptyRequestMethods: Set<HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<Data> {
             publishResponse(using: DataResponseSerializer(dataPreprocessor: preprocessor,
                                                           emptyResponseCodes: emptyResponseCodes,
                                                           emptyRequestMethods: emptyRequestMethods),
@@ -194,8 +189,7 @@
                            preprocessor: DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor,
                            encoding: String.Encoding? = nil,
                            emptyResponseCodes: Set<Int> = StringResponseSerializer.defaultEmptyResponseCodes,
-                           emptyRequestMethods: Set<HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<String>
-        {
+                           emptyRequestMethods: Set<HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<String> {
             publishResponse(using: StringResponseSerializer(dataPreprocessor: preprocessor,
                                                             encoding: encoding,
                                                             emptyResponseCodes: emptyResponseCodes,
@@ -224,8 +218,7 @@
                                             preprocessor: DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor,
                                             decoder: DataDecoder = JSONDecoder(),
                                             emptyResponseCodes: Set<Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes,
-                                            emptyResponseMethods: Set<HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> DataResponsePublisher<T>
-        {
+                                            emptyResponseMethods: Set<HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> DataResponsePublisher<T> {
             publishResponse(using: DecodableResponseSerializer(dataPreprocessor: preprocessor,
                                                                decoder: decoder,
                                                                emptyResponseCodes: emptyResponseCodes,
@@ -263,8 +256,7 @@
         ///                 default.
         ///   - serializer: `DataStreamSerializer` used to produce the published `Stream<Value, AFError>` values.
         public init<Serializer: DataStreamSerializer>(_ request: DataStreamRequest, queue: DispatchQueue, serializer: Serializer)
-            where Value == Serializer.SerializedObject
-        {
+            where Value == Serializer.SerializedObject {
             self.request = request
             streamHandler = { request.responseStream(using: serializer, on: queue, stream: $0) }
         }
@@ -300,8 +292,7 @@
         }
 
         private final class Inner<Downstream: Subscriber>: Subscription, Cancellable
-            where Downstream.Input == Output
-        {
+            where Downstream.Input == Output {
             typealias Failure = Downstream.Failure
 
             @Protected
@@ -345,8 +336,7 @@
         /// - Returns:      The `DataStreamPublisher`.
         @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
         func publishStream<Serializer: DataStreamSerializer>(using serializer: Serializer,
-                                                             on queue: DispatchQueue = .main) -> DataStreamPublisher<Serializer.SerializedObject>
-        {
+                                                             on queue: DispatchQueue = .main) -> DataStreamPublisher<Serializer.SerializedObject> {
             DataStreamPublisher(self, queue: queue, serializer: serializer)
         }
 
@@ -386,8 +376,7 @@
         func publishDecodable<T: Decodable>(type _: T.Type = T.self,
                                             queue: DispatchQueue = .main,
                                             decoder: DataDecoder = JSONDecoder(),
-                                            preprocessor: DataPreprocessor = PassthroughPreprocessor()) -> DataStreamPublisher<T>
-        {
+                                            preprocessor: DataPreprocessor = PassthroughPreprocessor()) -> DataStreamPublisher<T> {
             publishStream(using: DecodableStreamSerializer(decoder: decoder,
                                                            dataPreprocessor: preprocessor),
                           on: queue)
@@ -412,8 +401,7 @@
         ///   - queue:      `DispatchQueue` on which the `DownloadResponse` value will be published. `.main` by default.
         ///   - serializer: `ResponseSerializer` used to produce the published `DownloadResponse`.
         public init<Serializer: ResponseSerializer>(_ request: DownloadRequest, queue: DispatchQueue, serializer: Serializer)
-            where Value == Serializer.SerializedObject
-        {
+            where Value == Serializer.SerializedObject {
             self.request = request
             responseHandler = { request.response(queue: queue, responseSerializer: serializer, completionHandler: $0) }
         }
@@ -428,8 +416,7 @@
         public init<Serializer: DownloadResponseSerializerProtocol>(_ request: DownloadRequest,
                                                                     queue: DispatchQueue,
                                                                     serializer: Serializer)
-            where Value == Serializer.SerializedObject
-        {
+            where Value == Serializer.SerializedObject {
             self.request = request
             responseHandler = { request.response(queue: queue, responseSerializer: serializer, completionHandler: $0) }
         }
@@ -455,8 +442,7 @@
         }
 
         private final class Inner<Downstream: Subscriber>: Subscription, Cancellable
-            where Downstream.Input == Output
-        {
+            where Downstream.Input == Output {
             typealias Failure = Downstream.Failure
 
             @Protected
@@ -499,8 +485,7 @@
         /// - Returns:      The `DownloadResponsePublisher`.
         @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
         func publishResponse<Serializer: ResponseSerializer, T>(using serializer: Serializer, on queue: DispatchQueue = .main) -> DownloadResponsePublisher<T>
-            where Serializer.SerializedObject == T
-        {
+            where Serializer.SerializedObject == T {
             DownloadResponsePublisher(self, queue: queue, serializer: serializer)
         }
 
@@ -514,8 +499,7 @@
         /// - Returns:      The `DownloadResponsePublisher`.
         @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
         func publishResponse<Serializer: DownloadResponseSerializerProtocol, T>(using serializer: Serializer, on queue: DispatchQueue = .main) -> DownloadResponsePublisher<T>
-            where Serializer.SerializedObject == T
-        {
+            where Serializer.SerializedObject == T {
             DownloadResponsePublisher(self, queue: queue, serializer: serializer)
         }
 
@@ -547,8 +531,7 @@
         func publishData(queue: DispatchQueue = .main,
                          preprocessor: DataPreprocessor = DataResponseSerializer.defaultDataPreprocessor,
                          emptyResponseCodes: Set<Int> = DataResponseSerializer.defaultEmptyResponseCodes,
-                         emptyRequestMethods: Set<HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> DownloadResponsePublisher<Data>
-        {
+                         emptyRequestMethods: Set<HTTPMethod> = DataResponseSerializer.defaultEmptyRequestMethods) -> DownloadResponsePublisher<Data> {
             publishResponse(using: DataResponseSerializer(dataPreprocessor: preprocessor,
                                                           emptyResponseCodes: emptyResponseCodes,
                                                           emptyRequestMethods: emptyRequestMethods),
@@ -576,8 +559,7 @@
                            preprocessor: DataPreprocessor = StringResponseSerializer.defaultDataPreprocessor,
                            encoding: String.Encoding? = nil,
                            emptyResponseCodes: Set<Int> = StringResponseSerializer.defaultEmptyResponseCodes,
-                           emptyRequestMethods: Set<HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> DownloadResponsePublisher<String>
-        {
+                           emptyRequestMethods: Set<HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods) -> DownloadResponsePublisher<String> {
             publishResponse(using: StringResponseSerializer(dataPreprocessor: preprocessor,
                                                             encoding: encoding,
                                                             emptyResponseCodes: emptyResponseCodes,
@@ -606,8 +588,7 @@
                                             preprocessor: DataPreprocessor = DecodableResponseSerializer<T>.defaultDataPreprocessor,
                                             decoder: DataDecoder = JSONDecoder(),
                                             emptyResponseCodes: Set<Int> = DecodableResponseSerializer<T>.defaultEmptyResponseCodes,
-                                            emptyResponseMethods: Set<HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> DownloadResponsePublisher<T>
-        {
+                                            emptyResponseMethods: Set<HTTPMethod> = DecodableResponseSerializer<T>.defaultEmptyRequestMethods) -> DownloadResponsePublisher<T> {
             publishResponse(using: DecodableResponseSerializer(dataPreprocessor: preprocessor,
                                                                decoder: decoder,
                                                                emptyResponseCodes: emptyResponseCodes,

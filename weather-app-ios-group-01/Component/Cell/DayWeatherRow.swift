@@ -15,7 +15,7 @@ extension DayWeatherRow {
             DayWeatherRow(day: "Wednesday", humidityTemp: 8.5, icon: "weather-mist", temp: 11.1),
             DayWeatherRow(day: "Monday", humidityTemp: 1.6, icon: "weather-rain", temp: 13.1),
             DayWeatherRow(day: "Tuesday", humidityTemp: 2.6, icon: "weather-clear", temp: 25.1),
-            DayWeatherRow(day: "Wednesday", humidityTemp: 8.5, icon: "weather-mist", temp: 11.1),
+            DayWeatherRow(day: "Wednesday", humidityTemp: 8.5, icon: "weather-mist", temp: 11.1)
         ]
     }
 }

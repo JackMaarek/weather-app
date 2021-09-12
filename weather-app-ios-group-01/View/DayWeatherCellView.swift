@@ -9,26 +9,28 @@ import SwiftUI
 
 struct DayWeatherCellView: View {
     var viewModel: DayWeatherRowViewModel
-    
+
     init(viewModel: DayWeatherRowViewModel) {
-      self.viewModel = viewModel
+        self.viewModel = viewModel
     }
-    
+
     init(_ viewModel: DayWeatherRowViewModel) {
-      self.viewModel = viewModel
+        self.viewModel = viewModel
     }
-    
+
     var body: some View {
         HStack {
-            Text(viewModel.id)
+            Text(viewModel.date)
                 .font(.headline)
+            Spacer()
             Image(systemName: "drop")
                 .foregroundColor(.blue)
-            Text("°")
-            Image("weather-clear")
-            Text(viewModel.temperature + "°")
+                .scaledToFit()
+            Text(viewModel.humidity + "%")
+            Text(viewModel.temperature + "°C")
                 .bold()
+            Image(viewModel.icon)
+                .scaledToFill()
         }
     }
 }
-

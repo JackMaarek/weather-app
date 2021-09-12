@@ -72,8 +72,7 @@ public struct DataResponse<Success, Failure: Error> {
                 data: Data?,
                 metrics: URLSessionTaskMetrics?,
                 serializationDuration: TimeInterval,
-                result: Result<Success, Failure>)
-    {
+                result: Result<Success, Failure>) {
         self.request = request
         self.response = response
         self.data = data
@@ -261,8 +260,7 @@ public struct DownloadResponse<Success, Failure: Error> {
                 resumeData: Data?,
                 metrics: URLSessionTaskMetrics?,
                 serializationDuration: TimeInterval,
-                result: Result<Success, Failure>)
-    {
+                result: Result<Success, Failure>) {
         self.request = request
         self.response = response
         self.fileURL = fileURL
@@ -431,8 +429,7 @@ private enum DebugDescription {
     static func description(for data: Data?,
                             headers: HTTPHeaders,
                             allowingPrintableTypes printableTypes: [String] = ["json", "xml", "text"],
-                            maximumLength: Int = 100_000) -> String
-    {
+                            maximumLength: Int = 100_000) -> String {
         guard let data = data, !data.isEmpty else { return "[Body]: None" }
 
         guard

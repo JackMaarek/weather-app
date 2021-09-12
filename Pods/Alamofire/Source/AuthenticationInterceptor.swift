@@ -240,8 +240,7 @@ public class AuthenticationInterceptor<AuthenticatorType>: RequestInterceptor wh
     ///   - refreshWindow: The `RefreshWindow` used to identify excessive refresh calls. `RefreshWindow()` by default.
     public init(authenticator: AuthenticatorType,
                 credential: Credential? = nil,
-                refreshWindow: RefreshWindow? = RefreshWindow())
-    {
+                refreshWindow: RefreshWindow? = RefreshWindow()) {
         self.authenticator = authenticator
         mutableState.credential = credential
         mutableState.refreshWindow = refreshWindow
