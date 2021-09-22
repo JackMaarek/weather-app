@@ -14,8 +14,8 @@ class WeatherService: ObservableObject, WeatherServiceManager {
         service = apiManager
     }
 
-    // buildParameters doc
-    func buildParameters(lat: Double, long: Double) -> [String: Any] {
+    // buildOneCallParameters doc
+    func buildOneCallParameters(lat: Double, long: Double) -> [String: Any] {
         return [
             "lat": lat,
             "lon": long,
@@ -26,13 +26,23 @@ class WeatherService: ObservableObject, WeatherServiceManager {
         ] as [String: Any]
     }
 
+    // buildCityCallParameters doc
+    func buildCityCallParameters(city: String) -> [String: Any] {
+        return [
+            "q": city,
+            "lang": APIGlobals.lang,
+            "units": APIGlobals.units,
+            "appid": APIGlobals.appid
+        ] as [String: Any]
+    }
+    
     // getCurrentForecast doc
-    func getForecast(lat: Double, long: Double, completionHandler: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
-        let parameters = buildParameters(lat: lat, long: long)
-        service.performRequest(url: APIGlobals.url, params: parameters, completion: { apiResponse in
+    func getForecast(city: String, completionHandler: @escaping (Result<CityAPIResponse, Error>) -> Void) {
+        let parameters = buildCityCallParameters(city: city)
+        service.performRequest(url: APIGlobals.cityCallUrl, params: parameters, completion: { apiResponse in
             switch apiResponse {
             case let .success(weatherData):
-                guard let decodedResp = try? JSONDecoder().decode(WeatherAPIResponse.self, from: weatherData!) else {
+                guard let decodedResp = try? JSONDecoder().decode(CityAPIResponse.self, from: weatherData!) else {
                     completionHandler(.failure(print("Parsing Error") as! Error))
                     return
                 }
@@ -46,8 +56,8 @@ class WeatherService: ObservableObject, WeatherServiceManager {
     // getCurrentForecast doc
     func getCurrentLocationForecast(completionHandler: @escaping (Result<WeatherAPIResponse, Error>) -> Void) {
         let location = LocationHelper.currentLocation
-        let parameters = buildParameters(lat: location.latitude, long: location.longitude)
-        service.performRequest(url: APIGlobals.url, params: parameters, completion: { apiResponse in
+        let parameters = buildOneCallParameters(lat: location.latitude, long: location.longitude)
+        service.performRequest(url: APIGlobals.oneCallUrl, params: parameters, completion: { apiResponse in
             switch apiResponse {
             case let .success(weatherData):
                 guard let decodedResp = try? JSONDecoder().decode(WeatherAPIResponse.self, from: weatherData!) else {

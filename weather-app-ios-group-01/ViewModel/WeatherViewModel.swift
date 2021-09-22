@@ -14,38 +14,35 @@ class WeatherViewModel: ObservableObject {
     @Published var dailyWeatherListView: DayWeatherListView?
 
     private var service: WeatherServiceManager
-    private var dayWeatherRows: [DayWeatherRowViewModel]
 
     init(service: WeatherServiceManager = WeatherService()) {
         self.service = service
-        dayWeatherRows = [DayWeatherRowViewModel]()
     }
 
     init(_ service: WeatherServiceManager = WeatherService()) {
         self.service = service
-        dayWeatherRows = [DayWeatherRowViewModel]()
     }
-
+    
+    @ViewBuilder
     func getCurrentWeatherView() -> some View {
         switch weatherData {
         case .none:
-            return AnyView(EmptyView())
+            EmptyView()
         default:
-            return AnyView(HeaderCardView(viewModel: CurrentWeatherRowModel(item: weatherData!)))
+            HeaderCardView(viewModel: CurrentWeatherRowModel(item: weatherData!))
         }
     }
 
+    @ViewBuilder
     func getDailyWeatherListView() -> some View {
         // guard let dailyList = weatherData?.daily else { return EmptyResultView}
         switch weatherData {
         case .none:
-            return AnyView(EmptyView())
+            EmptyView()
         default:
-            for daily in weatherData!.daily {
-                dayWeatherRows.append(DayWeatherRowViewModel(item: daily))
+            DayWeatherListView.getDayWeatherListView {
+                return self.weatherData!.daily.map({DayWeatherRowViewModel(item: $0)})
             }
-
-            return AnyView(DayWeatherListView(dayWeatherRows: dayWeatherRows))
         }
     }
 

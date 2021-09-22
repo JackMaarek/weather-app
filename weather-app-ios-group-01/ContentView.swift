@@ -11,7 +11,7 @@ struct ContentView: View {
     private var service: WeatherServiceManager
     @ObservedObject var weatherViewModel: WeatherViewModel
 
-    init(viewModel _: WeatherViewModel, service: WeatherServiceManager = WeatherService()) {
+    init(viewModel _: WeatherViewModel, _ service: WeatherServiceManager = WeatherService()) {
         self.service = service
         weatherViewModel = WeatherViewModel(service: self.service)
     }
@@ -24,14 +24,14 @@ struct ContentView: View {
                             Text("WHERETHER ⛅️")
                                 .padding(20)
                             Spacer()
-                            NavigationLink(destination: SearchCityWeatherView()) {
                                 HStack {
-                                    Image(systemName: "magnifyingglass")
-                                        .foregroundColor(.black)
-                                    Text("Search")
+                                    NavigationLink(destination: SearchCityWeatherView()) {
+                                        Image(systemName: "magnifyingglass")
+                                            .foregroundColor(.black)
+                                        Text("Search")
+                                    }
                                 }
                                 .padding(20)
-                            }
                         }
                         ZStack{
                             weatherViewModel.getCurrentWeatherView()

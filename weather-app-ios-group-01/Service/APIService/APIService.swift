@@ -10,7 +10,8 @@ import Foundation
 
 enum APIGlobals {
     static let lang: String = "fr"
-    static let url: String = "https://api.openweathermap.org/data/2.5/onecall"
+    static let oneCallUrl: String = "https://api.openweathermap.org/data/2.5/onecall"
+    static let cityCallUrl: String = "https://api.openweathermap.org/data/2.5/weather"
     static let exclude: String = "minutely,hourly,alerts"
     static let units: String = "metric"
     static let appid: String = "d3c596d8596ec03a4973fb0fc0222e66"

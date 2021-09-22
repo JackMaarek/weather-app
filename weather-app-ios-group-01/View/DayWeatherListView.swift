@@ -13,4 +13,9 @@ struct DayWeatherListView: View {
             DayWeatherCellView(viewModel: dayWeatherRow)
         }
     }
+    
+    @ViewBuilder
+    static func getDayWeatherListView(with data: @escaping () -> [DayWeatherRowViewModel]) -> DayWeatherListView {
+        DayWeatherListView(dayWeatherRows: data())
+    }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 protocol WeatherServiceManager {
     // getForecast doc
-    func getForecast(lat: Double, long: Double, completionHandler: @escaping (Result<WeatherAPIResponse, Error>) -> Void)
+    func getForecast(city: String, completionHandler: @escaping (Result<CityAPIResponse, Error>) -> Void)
 
     // getCurrentLocationForecast
     func getCurrentLocationForecast(completionHandler: @escaping (Result<WeatherAPIResponse, Error>) -> Void)
