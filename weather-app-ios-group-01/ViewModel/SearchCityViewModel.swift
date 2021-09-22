@@ -13,12 +13,13 @@ class SearchCityViewModel: ObservableObject {
     @Published var cityData: CityAPIResponse?
     @Published var cityDetailsView: CityDetailsView?
     private var service: WeatherServiceManager
-    
+
     init(_ service: WeatherServiceManager = WeatherService(), city: String = "") {
         self.service = service
         self.city = city
+        refresh()
     }
-    
+
     @ViewBuilder
     func getCityDetailsView() -> some View {
         switch cityData {
@@ -28,7 +29,7 @@ class SearchCityViewModel: ObservableObject {
             CityDetailsView(viewModel: CityViewModel(item: cityData!))
         }
     }
-    
+
     func refresh() {
         service.getForecast(city: city) { result in
             switch result {

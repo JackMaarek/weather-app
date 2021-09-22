@@ -9,21 +9,21 @@ import SwiftUI
 
 struct CityDetailsView: View {
     var viewModel: CityViewModel
-    
+
     init(viewModel: CityViewModel) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
-        HStack {
+        VStack {
             Text(viewModel.date)
                 .font(.headline)
             Spacer()
             Image(systemName: "drop")
                 .foregroundColor(.blue)
                 .scaledToFit()
-            Text(viewModel.feelsLike + "°C")
             Text(viewModel.temperature + "°C")
+            Text("Ressenti " + viewModel.feelsLike + "°C")
                 .bold()
             Image(viewModel.icon)
                 .scaledToFill()

@@ -12,7 +12,7 @@ struct City: Hashable {
 }
 
 extension City {
-    static var cityData: [City]{
+    static var cityData: [City] {
         [
             City(name: "Paris"),
             City(name: "New York"),

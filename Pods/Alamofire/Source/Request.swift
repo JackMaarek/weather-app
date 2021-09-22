@@ -261,7 +261,8 @@ public class Request {
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         self.id = id
         self.underlyingQueue = underlyingQueue
         self.serializationQueue = serializationQueue
@@ -1092,7 +1093,8 @@ public class DataRequest: Request {
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         self.convertible = convertible
 
         super.init(id: id,
@@ -1272,7 +1274,8 @@ public final class DataStreamRequest: Request {
          serializationQueue: DispatchQueue,
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         self.convertible = convertible
         self.automaticallyCancelOnStreamError = automaticallyCancelOnStreamError
 
@@ -1371,7 +1374,8 @@ public final class DataStreamRequest: Request {
     }
 
     func appendStreamCompletion<Success, Failure>(on queue: DispatchQueue,
-                                                  stream: @escaping Handler<Success, Failure>) {
+                                                  stream: @escaping Handler<Success, Failure>)
+    {
         appendResponseSerializer {
             self.underlyingQueue.async {
                 self.responseSerializerDidComplete {
@@ -1392,7 +1396,8 @@ public final class DataStreamRequest: Request {
     }
 
     func enqueueCompletion<Success, Failure>(on queue: DispatchQueue,
-                                             stream: @escaping Handler<Success, Failure>) {
+                                             stream: @escaping Handler<Success, Failure>)
+    {
         queue.async {
             do {
                 let completion = Completion(request: self.request,
@@ -1564,7 +1569,8 @@ public class DownloadRequest: Request {
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
          delegate: RequestDelegate,
-         destination: @escaping Destination) {
+         destination: @escaping Destination)
+    {
         self.downloadable = downloadable
         self.destination = destination
 
@@ -1781,7 +1787,8 @@ public class UploadRequest: DataRequest {
          eventMonitor: EventMonitor?,
          interceptor: RequestInterceptor?,
          fileManager: FileManager,
-         delegate: RequestDelegate) {
+         delegate: RequestDelegate)
+    {
         upload = convertible
         self.fileManager = fileManager
 

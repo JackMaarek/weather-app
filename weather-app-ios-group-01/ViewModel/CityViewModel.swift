@@ -20,7 +20,7 @@ struct CityViewModel: Identifiable {
     var id: String {
         return day + month
     }
-    
+
     var date: String {
         return day + " " + month
     }
@@ -50,5 +50,4 @@ struct CityViewModel: Identifiable {
         guard let description = item.weather.first?.weatherDescription else { return "" }
         return description
     }
-    
 }

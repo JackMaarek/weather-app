@@ -20,6 +20,10 @@ struct DayWeatherCellView: View {
 
     var body: some View {
         HStack {
+            Image(viewModel.icon)
+                .scaledToFill()
+                .colorInvert()
+            Spacer()
             Text(viewModel.date)
                 .font(.headline)
             Spacer()
@@ -29,8 +33,6 @@ struct DayWeatherCellView: View {
             Text(viewModel.humidity + "%")
             Text(viewModel.temperature + "°C")
                 .bold()
-            Image(viewModel.icon)
-                .scaledToFill()
         }
     }
 }

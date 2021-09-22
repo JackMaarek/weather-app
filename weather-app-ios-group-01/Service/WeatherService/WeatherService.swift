@@ -22,7 +22,7 @@ class WeatherService: ObservableObject, WeatherServiceManager {
             "lang": APIGlobals.lang,
             "units": APIGlobals.units,
             "exclude": APIGlobals.exclude,
-            "appid": APIGlobals.appid
+            "appid": APIGlobals.appid,
         ] as [String: Any]
     }
 
@@ -32,10 +32,10 @@ class WeatherService: ObservableObject, WeatherServiceManager {
             "q": city,
             "lang": APIGlobals.lang,
             "units": APIGlobals.units,
-            "appid": APIGlobals.appid
+            "appid": APIGlobals.appid,
         ] as [String: Any]
     }
-    
+
     // getCurrentForecast doc
     func getForecast(city: String, completionHandler: @escaping (Result<CityAPIResponse, Error>) -> Void) {
         let parameters = buildCityCallParameters(city: city)
@@ -43,7 +43,6 @@ class WeatherService: ObservableObject, WeatherServiceManager {
             switch apiResponse {
             case let .success(weatherData):
                 guard let decodedResp = try? JSONDecoder().decode(CityAPIResponse.self, from: weatherData!) else {
-                    completionHandler(.failure(print("Parsing Error") as! Error))
                     return
                 }
                 completionHandler(.success(decodedResp))

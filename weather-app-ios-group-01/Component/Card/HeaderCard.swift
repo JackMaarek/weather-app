@@ -19,7 +19,7 @@ struct HeaderCard {
 extension HeaderCard {
     static var data: [HeaderCard] {
         [
-            HeaderCard(city: "Paris", date: Date(timeIntervalSinceNow: 0), temp: 27, tempDescription: "Ensoleillé", feelsLike: 28, bgColor: Color(UIColor.red))
+            HeaderCard(city: "Paris", date: Date(timeIntervalSinceNow: 0), temp: 27, tempDescription: "Ensoleillé", feelsLike: 28, bgColor: Color(UIColor.red)),
         ]
     }
 }

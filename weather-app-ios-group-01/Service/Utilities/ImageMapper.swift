@@ -13,5 +13,5 @@ let iconMapper = [
     "Clouds": "weather-cloud",
     "Rain": "weather-rain",
     "Snow": "weather-snow",
-    "Thunderstorm": "weather-thunder"
+    "Thunderstorm": "weather-thunder",
 ]

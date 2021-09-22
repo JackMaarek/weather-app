@@ -18,28 +18,30 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-                VStack {
-                    Group {
-                        HStack{
-                            Text("WHERETHER ⛅️")
-                                .padding(20)
-                            Spacer()
-                                HStack {
-                                    NavigationLink(destination: SearchCityWeatherView()) {
-                                        Image(systemName: "magnifyingglass")
-                                            .foregroundColor(.black)
-                                        Text("Search")
-                                    }
-                                }
-                                .padding(20)
+            VStack {
+                Group {
+                    HStack {
+                        Text("WHERETHER ⛅️")
+                            .padding(20)
+                        Spacer()
+                        HStack {
+                            NavigationLink(destination: SearchCityWeatherView()) {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.black)
+                                Text("Search")
+                            }
                         }
-                        ZStack{
-                            weatherViewModel.getCurrentWeatherView()
-                                .frame(height: 100)
-                        }
-                        weatherViewModel.getDailyWeatherListView()
-                    }.onAppear(perform: weatherViewModel.refresh)
-                }
+                        .padding(20)
+                    }
+                    ZStack {
+                        weatherViewModel.getCurrentWeatherView()
+                            .frame(height: 100)
+                            .foregroundColor(Color.purple)
+                            .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .circular))
+                    }
+                    weatherViewModel.getDailyWeatherListView()
+                }.onAppear(perform: weatherViewModel.refresh)
+            }
             .navigationBarTitle("Weather ⛅️")
             .navigationBarHidden(true)
         }

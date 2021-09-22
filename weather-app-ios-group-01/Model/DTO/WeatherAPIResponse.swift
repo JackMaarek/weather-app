@@ -93,6 +93,7 @@ struct CityAPIResponse: Codable {
 }
 
 // MARK: - Main
+
 struct Main: Codable {
     let temp, feelsLike, tempMin, tempMax: Double
     let pressure, humidity: Int

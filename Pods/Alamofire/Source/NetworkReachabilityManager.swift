@@ -165,7 +165,8 @@
         /// - Returns: `true` if listening was started successfully, `false` otherwise.
         @discardableResult
         open func startListening(onQueue queue: DispatchQueue = .main,
-                                 onUpdatePerforming listener: @escaping Listener) -> Bool {
+                                 onUpdatePerforming listener: @escaping Listener) -> Bool
+        {
             stopListening()
 
             $mutableState.write { state in

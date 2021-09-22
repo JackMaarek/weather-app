@@ -22,7 +22,7 @@ class WeatherViewModel: ObservableObject {
     init(_ service: WeatherServiceManager = WeatherService()) {
         self.service = service
     }
-    
+
     @ViewBuilder
     func getCurrentWeatherView() -> some View {
         switch weatherData {
@@ -41,7 +41,7 @@ class WeatherViewModel: ObservableObject {
             EmptyView()
         default:
             DayWeatherListView.getDayWeatherListView {
-                return self.weatherData!.daily.map({DayWeatherRowViewModel(item: $0)})
+                self.weatherData!.daily.map { DayWeatherRowViewModel(item: $0) }
             }
         }
     }

@@ -11,9 +11,9 @@ struct SearchCityWeatherView: View {
     @State private var searchText: String
     private var cityData: [City] = City.cityData
 
-    init(_ viewModel: SearchCityViewModel = SearchCityViewModel()) {
-        self.searchText = ""
-        self.cityData = City.cityData
+    init(_: SearchCityViewModel = SearchCityViewModel()) {
+        searchText = ""
+        cityData = City.cityData
     }
 
     var body: some View {
@@ -23,7 +23,7 @@ struct SearchCityWeatherView: View {
                 ForEach(self.cityData.filter {
                     self.searchText.isEmpty ? true : $0.name.lowercased().contains(self.searchText.lowercased())
                 }, id: \.self) { city in
-                    NavigationLink(destination: SearchCityViewModel(city: city.name).getCityDetailsView()) {
+                    NavigationLink(destination: DetailView(viewModel: SearchCityViewModel(city: city.name))) {
                         Text(city.name)
                     }
                 }
